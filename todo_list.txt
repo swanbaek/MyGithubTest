@@ -1,0 +1,4 @@
+1. git bash에서 CLI명령어로 깃과 깃헙 사용해보기
+2. SourceTree에서 GUI환경에서 깃과 깃헙 연동하기
+3. VSCode에서 깃과 깃헙 연동하기
+- U 는 Untracked 상태로 git이 관리하는 파일이 아니라는 의미

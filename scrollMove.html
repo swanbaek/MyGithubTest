@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{
+            overflow: hidden;
+        }
+        html,body{width:100%;height:100%}
+        .content{
+            width: 100%;
+            height: 100%;
+            background-color: aqua;
+            position: relative;
+        }
+        .content>h1{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+            font-size: 10em;
+            font-weight: bold;
+        }
+        .content:nth-child(even){
+            background-color: rgb(188, 151, 151);
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        window.addEventListener("wheel", function(e){
+            e.preventDefault()
+        },{passive:false})
+        /*wheel이벤트인데, 휠을 굴렸을 때 스크롤이 되지 않도록 하려면 
+        wheel의 기본 이벤트인 scroll를 제거를 해줘야 한다.
+        passive는 addeventListener() 옵션중에 1개이다
+passive옵션은 true와 flase 값을 가지게 된다
+flase인 경우 : preventDefault()를 이용해서 이벤트 자체를 막을 수 있기 때문에, 
+브라우저는 scroll를 계속할지 안할지를 매번 검사하게 된다. passive옵션의 기본값이다.
+true인 경우 : 스크롤이벤트를 막지 않겠다! preventDefalt()를 사용할 수 없다
+기본이벤트를 제거를 해도 여전히 스크롤이 여전히 되고 오류가 발생이된다고 한다.
+→ 이유는 패시브모드에서 동작하는 이벤트 이기 때문에
+→ 그래서 패시브 모드를 끈 상태에서 기본이벤트를 제거를해야되는거다
+        */
+       $(function(){
+        $html=$('html')
+        var page=1
+        var lastPage=$('.content').length
+        $html.animate({scrollTop:0},10)
+
+        $(window).on('wheel', function(e){
+            if($html.is(":animated")) return;
+ 
+            if(e.originalEvent.deltaY > 0){
+                if(page== lastPage) return;
+        
+                page++;
+            }else if(e.originalEvent.deltaY < 0){
+                if(page == 1) return;
+        
+                page--;
+            } 
+            var posTop = (page-1) * $(window).height();
+        
+            $html.animate({scrollTop : posTop});
+        })
+       })
+    </script>
+</head>
+<body>
+<div class="content">
+    <h1>1</h1>
+</div>
+<div class="content">
+    <h1>2</h1>
+</div>
+<div class="content">
+    <h1>3</h1>
+</div>
+<div class="content">
+    <h1>4</h1>
+</div>
+<div class="content">
+    <h1>5</h1>
+</div>
+<div class="content">
+    <h1>6</h1>
+</div>
+<div class="content">
+    <h1>7</h1>
+</div>   
+</body>
+</html>
